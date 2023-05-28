@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export const CursoLibre = () => {
 	const [cursos, setCursos] = useState([
@@ -21,15 +21,16 @@ export const CursoLibre = () => {
 			estudiantes: []
 		}
 	]);
+
 	const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 	const [profesorSeleccionado, setProfesorSeleccionado] = useState("");
-	const [estudianteSeleccionado, setEstudianteSeleccionado] = useState("");
+	const [estudianteSeleccionado, setEstudianteSeleccionado] = useState(null);
 	const [estudiantesDisponibles, setEstudiantesDisponibles] = useState([
-		"Estudiante 1",
-		"Estudiante 2",
-		"Estudiante 3",
-		"Estudiante 4",
-		"Estudiante 5"
+		{ id: 1, nombre: "Estudiante 1" },
+		{ id: 2, nombre: "Estudiante 2" },
+		{ id: 3, nombre: "Estudiante 3" },
+		{ id: 4, nombre: "Estudiante 4" },
+		{ id: 5, nombre: "Estudiante 5" }
 	]);
 
 	const handleCursoClick = (curso) => {
@@ -42,22 +43,25 @@ export const CursoLibre = () => {
 	};
 
 	const handleEstudianteChange = (e) => {
-		setEstudianteSeleccionado(e.target.value);
+		const estudianteId = parseInt(e.target.value);
+		const estudiante = estudiantesDisponibles.find((est) => est.id === estudianteId);
+		setEstudianteSeleccionado(estudiante);
 	};
 
 	const handleAgregarEstudiante = () => {
-		if (estudianteSeleccionado) {
+		if (estudianteSeleccionado && !cursoSeleccionado.estudiantes.includes(estudianteSeleccionado)) {
 			const cursosActualizados = cursos.map((curso) => {
 				if (curso.id === cursoSeleccionado.id) {
+					const estudiantesActualizados = [...curso.estudiantes, estudianteSeleccionado];
 					return {
 						...curso,
-						estudiantes: [...curso.estudiantes, estudianteSeleccionado]
+						estudiantes: estudiantesActualizados
 					};
 				}
 				return curso;
 			});
 			setCursos(cursosActualizados);
-			setEstudianteSeleccionado("");
+			setEstudianteSeleccionado(null);
 			setCursoSeleccionado((prevCurso) => {
 				return {
 					...prevCurso,
@@ -70,9 +74,10 @@ export const CursoLibre = () => {
 	const handleQuitarEstudiante = (estudiante) => {
 		const cursosActualizados = cursos.map((curso) => {
 			if (curso.id === cursoSeleccionado.id) {
+				const estudiantesActualizados = curso.estudiantes.filter((e) => e.id !== estudiante.id);
 				return {
 					...curso,
-					estudiantes: curso.estudiantes.filter((e) => e !== estudiante)
+					estudiantes: estudiantesActualizados
 				};
 			}
 			return curso;
@@ -81,7 +86,7 @@ export const CursoLibre = () => {
 		setCursoSeleccionado((prevCurso) => {
 			return {
 				...prevCurso,
-				estudiantes: prevCurso.estudiantes.filter((e) => e !== estudiante)
+				estudiantes: prevCurso.estudiantes.filter((e) => e.id !== estudiante.id)
 			};
 		});
 	};
@@ -105,31 +110,59 @@ export const CursoLibre = () => {
 				<form>
 					<div className="form-group">
 						<label htmlFor="curso">Curso:</label>
-						<input type="text" id="curso" className="form-control" value={cursoSeleccionado ? cursoSeleccionado.curso : ""} disabled />
+						<input
+							type="text"
+							id="curso"
+							className="form-control"
+							value={cursoSeleccionado ? cursoSeleccionado.curso : ""}
+							disabled
+						/>
 					</div>
 					<div className="form-group">
 						<label htmlFor="profesor">Profesor:</label>
-						<select id="profesor" className="form-select" value={profesorSeleccionado} onChange={handleProfesorChange}>
+						<select
+							id="profesor"
+							className="form-select"
+							value={profesorSeleccionado}
+							onChange={handleProfesorChange}
+							disabled={!cursoSeleccionado}
+						>
 							<option value="">Seleccionar Profesor</option>
 							<option value="Profesor 1">Profesor 1</option>
 							<option value="Profesor 2">Profesor 2</option>
 							<option value="Profesor 3">Profesor 3</option>
 						</select>
-						<button type="button" className="btn btn-primary mt-2" onClick={handleGuardarProfesor}>
+						<button
+							type="button"
+							className="btn btn-primary mt-2"
+							onClick={handleGuardarProfesor}
+							disabled={!cursoSeleccionado}
+						>
 							Guardar Profesor
 						</button>
 					</div>
 					<div className="form-group">
 						<label htmlFor="estudiantes">Estudiantes:</label>
-						<select id="estudiantes" className="form-select" value={estudianteSeleccionado} onChange={handleEstudianteChange}>
+						<select
+							id="estudiantes"
+							className="form-select"
+							value={estudianteSeleccionado ? estudianteSeleccionado.id : ""}
+							onChange={handleEstudianteChange}
+							disabled={!cursoSeleccionado}
+						>
 							<option value="">Seleccionar Estudiante</option>
 							{estudiantesDisponibles.map((estudiante) => (
-								<option key={estudiante} value={estudiante}>
-									{estudiante}
+								<option key={estudiante.id} value={estudiante.id}>
+									{estudiante.nombre}
 								</option>
 							))}
 						</select>
-						<button type="button" className="btn btn-primary mt-2" onClick={handleAgregarEstudiante}>
+						<button
+							type="button"
+							className="btn btn-primary mt-2"
+							onClick={handleAgregarEstudiante}
+							disabled={!cursoSeleccionado || !estudianteSeleccionado}
+						>
 							Añadir Estudiante
 						</button>
 					</div>
@@ -162,16 +195,23 @@ export const CursoLibre = () => {
 						<table className="table">
 							<thead>
 								<tr>
+									<th>ID</th>
 									<th>Nombre</th>
 									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								{cursoSeleccionado.estudiantes.map((estudiante) => (
-									<tr key={estudiante}>
-										<td>{estudiante}</td>
+									<tr key={estudiante.id}>
+										<td>{estudiante.id}</td>
+										<td>{estudiante.nombre}</td>
 										<td>
-											<button type="button" className="btn btn-danger" onClick={() => handleQuitarEstudiante(estudiante)}>
+											<button
+												type="button"
+												className="btn btn-danger"
+												onClick={() => handleQuitarEstudiante(estudiante)}
+												disabled={!cursoSeleccionado}
+											>
 												Quitar
 											</button>
 										</td>
