@@ -1,7 +1,8 @@
-export const SigasApp = () => {
+export const SigaApp = () => {
 
 	return (
 		<>
+
 		</>
 	)
 }
