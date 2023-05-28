@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import FormularioAsignaturas from '../creacion/FormularioAsignaturas';
+import FormularioFacultad from '../creacion/FormularioAsignatura';
+
 
 
 export const Crear = () => {
@@ -12,7 +13,7 @@ export const Crear = () => {
   return (
     <div>
       <h1>Formulario de Asignaturas</h1>
-      <FormularioAsignaturas agregarAsignatura={agregarAsignatura} />
+      <FormularioFacultad agregarAsignatura={agregarAsignatura} />
     
     </div>
   );
