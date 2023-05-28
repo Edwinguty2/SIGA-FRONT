@@ -1,4 +1,5 @@
-import { Navbar } from "./componentes/navegacion/Navbar";
+import { Navbar } from "./componentes/navegacion/Navbar"
+
 
 export const SigaApp = () => {
 
