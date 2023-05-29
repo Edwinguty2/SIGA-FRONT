@@ -57,7 +57,14 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores, e
 					<>
 						<div>
 							<label htmlFor='profesor'>Profesor:</label>
-							<input type='text' name='profesor' value={profesorSeleccionado} onChange={handleProfesorChange} />
+							<select name='profesor' id='profesor' value={profesorSeleccionado} onChange={handleProfesorChange}>
+								<option value=''>Selecciona un profesor</option>
+								{extraeProfesores().map((profesor) => (
+									<option key={profesor.id} value={profesor.nombre}>
+										{profesor.nombre}
+									</option>
+								))}
+							</select>
 						</div>
 						{extraeEstudiantes().length > 0 ? (
 							<div>
