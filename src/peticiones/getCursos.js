@@ -6,9 +6,9 @@ export const getCursos = async () => {
     const cursosList = data.map(curso => ({
         materia: curso.materia,
         facultad: curso.facultad,
-        id: curso.id,
+        id : curso.id,
         profesor: curso.profesor,
-        estudiantes: curso.estudiantes
+        estudiantes: Array.isArray(curso.estudiantes) ? curso.estudiantes : [curso.estudiantes]
     }));
     return cursosList;
 };
