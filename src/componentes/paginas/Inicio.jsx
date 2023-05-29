@@ -1,6 +1,6 @@
 import '../../estilo/inicio.css';
 
-export const Inicio = ({ facultades }) => {
+export const Inicio = ({ facultades, cursos }) => {
 	return (
 		<div className="container mt-4">
 			<h1 className="mt-4">Facultades</h1>
@@ -24,17 +24,21 @@ export const Inicio = ({ facultades }) => {
 								<table className="table">
 									<thead>
 										<tr>
+											<th>ID</th>
 											<th>Materia</th>
 											<th>Profesor</th>
 										</tr>
 									</thead>
 									<tbody>
-										{datos?.cursos?.map((curso) => (
-											<tr key={curso.id}>
-												<td>{curso.materia}</td>
-												<td>{curso.profesor}</td>
-											</tr>
-										))}
+										{cursos
+											.filter((curso) => curso.facultad.toLowerCase() === facultad.toLowerCase())
+											.map((curso) => (
+												<tr key={curso.id}>
+													<td>{curso.id}</td>
+													<td>{curso.materia}</td>
+													<td>{curso.profesor}</td>
+												</tr>
+											))}
 									</tbody>
 								</table>
 							</div>

@@ -3,10 +3,10 @@ import Crear from "./componentes/paginas/Crear";
 import { CursoLibre } from './componentes/paginas/CursoLibre';
 import { Navbar } from "./componentes/navegacion/Navbar";
 import { Inicio } from "./componentes/paginas/Inicio";
+import { CrearCurso } from "./componentes/paginas/CrearCurso";
 import { useState } from 'react';
 
 export const SigaApp = () => {
-
 	const [cursos, setCursos] = useState([])
 	const [facultades, setFacultades] = useState({
 		eica: {
@@ -85,6 +85,7 @@ export const SigaApp = () => {
 		}
 		setCursos((cursos) => [...cursos, nuevoCurso])
 	}
+
 	const extraeEstudiantes = () => {
 		const estudiantes = [];
 		Object.values(facultades).forEach((facultad) => {
@@ -99,15 +100,6 @@ export const SigaApp = () => {
 		});
 		return profesores;
 	};
-	const extraeAsignaturas = () => {
-		const asignaturas = [];
-		Object.values(facultades).forEach((facultad) => {
-			asignaturas.push(...facultad.asignaturas);
-		});
-		return asignaturas;
-	};
-
-
 
 	return (
 		<>
@@ -115,9 +107,11 @@ export const SigaApp = () => {
 				<Router>
 					<Navbar />
 					<Switch>
-						<Route path='/' exact render={() => <Inicio facultades={facultades} />} />
+						<Route path='/' exact render={() => <Inicio facultades={facultades} cursos={cursos} />} />
+
 						<Route path='/crear' render={(props) => (<Crear {...props} agregarEstudiante={(estudiante, facultad) => { agregarEstudiante(estudiante, facultad) }} agregarProfesor={(profesor, facultad) => { agregarProfesor(profesor, facultad) }} agregarAsignatura={(asignatura, facultad) => { agregarAsignatura(asignatura, facultad) }} />)} />
-						<Route path='/curso-libre' render={(props) => (<CursoLibre {...props} listaCursos={cursos} extraeEstudiantes={() => { extraeEstudiantes() }} extraeProfesores={() => { extraeProfesores() }} extraeAsignaturas={() => { extraeAsignaturas() }}/>)} />
+						<Route path='/crear-curso-libre' render={(props) => <CrearCurso{...props} agregarCurso={(curso, facultad) => { agregarCurso(curso, facultad); }} facultades={facultades} />} />
+						<Route path='/cursos-libres' render={(props) => (<CursoLibre {...props} listaCursos={cursos} extraeEstudiantes={() => { extraeEstudiantes() }} extraeProfesores={() => { extraeProfesores() }} />)} />
 					</Switch>
 				</Router>
 			</div>
