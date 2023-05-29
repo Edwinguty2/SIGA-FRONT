@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export const SigaApp = () => {
 
-	const [cursos, setCursos]= useState([])
+	const [cursos, setCursos] = useState([])
 	const [facultades, setFacultades] = useState({
 		eica: {
 			estudiantes: [],
@@ -75,13 +75,13 @@ export const SigaApp = () => {
 	}
 
 	const agregarCurso = (asignatura, facultad) => {
-		const id = Math.floor(Math.random() * 1000); 
+		const id = Math.floor(Math.random() * 1000);
 		const nuevoCurso = {
-			materia:asignatura,
-			facultad:facultad,
-			id:id,
-			profesor:"",
-			estudiantes:[]
+			materia: asignatura,
+			facultad: facultad,
+			id: id,
+			profesor: "",
+			estudiantes: []
 		}
 		setCursos((cursos) => [...cursos, nuevoCurso])
 	}
@@ -94,9 +94,9 @@ export const SigaApp = () => {
 				<Router>
 					<Navbar />
 					<Switch>
-						<Route path='/' exact component={Inicio} />
-						<Route path='/crear' render={(props) => ( <Crear {...props} agregarEstudiante={(estudiante,facultad) => { agregarEstudiante(estudiante,facultad) }} agregarProfesor={(profesor,facultad) => { agregarProfesor(profesor,facultad) }} agregarAsignatura={(asignatura,facultad) => { agregarAsignatura(asignatura,facultad) }}/> )}/>
-						<Route path='/curso-libre' render={(props) => (  <CursoLibre {...props} cursos={cursos} />)}/>
+						<Route path='/' exact render={() => <Inicio facultades={facultades} />} />
+						<Route path='/crear' render={(props) => (<Crear {...props} agregarEstudiante={(estudiante, facultad) => { agregarEstudiante(estudiante, facultad) }} agregarProfesor={(profesor, facultad) => { agregarProfesor(profesor, facultad) }} agregarAsignatura={(asignatura, facultad) => { agregarAsignatura(asignatura, facultad) }} />)} />
+						<Route path='/curso-libre' render={(props) => (<CursoLibre {...props} cursos={cursos} />)} />
 					</Switch>
 				</Router>
 			</div>
