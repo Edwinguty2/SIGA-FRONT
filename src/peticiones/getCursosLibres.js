@@ -1,5 +1,5 @@
-export const getCursosLibres = async (asignatura, facultadAsignada) => {
-    const url = `http://localhost:8080/curso/libre/crear/?asignatura=${asignatura}&facultadAsignada=${facultadAsignada}`;
+export const getCursosLibres = async (asignatura, facultadAsignada, id) => {
+    const url = `http://localhost:8080/curso/libre/crear/?asignatura=${asignatura}&facultadAsignada=${facultadAsignada}&id=${id}`;
     try {
         const response = await fetch(url, {
             method: 'GET',
