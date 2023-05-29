@@ -4,6 +4,4 @@ Integrantes:
 
 Miguel Feo - Edwin Gutierrez - Nicolas Ortiz
 
-No se logro conectar el backend con el front end.
-
-El Crear estudiante y el crear profesor no funcionan correctamente
+No se logro conectar el backend con el front end, solo pasa los estudianes y profesores a la facultad.
