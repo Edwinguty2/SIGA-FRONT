@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores, editarCurso }) => {
 	const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
@@ -42,26 +42,26 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores, e
 		<div className='CursoLibre'>
 			<h1>Cursos Libres</h1>
 			<form onSubmit={handleSubmit}>
-				<div>
+				<div className='form-group'>
 					<label htmlFor='curso'>Curso:</label>
-					<select name='curso' id='curso' onChange={handleCursoChange}>
+					<select className='form-control' name='curso' id='curso' onChange={handleCursoChange}>
 						<option value=''>Selecciona un curso</option>
 						{listaCursos.map((curso) => (
 							<option key={curso.id} value={curso.id}>
-								{curso.materia} - {curso.facultad}
+								{curso.id} - {curso.materia} - {curso.facultad}
 							</option>
 						))}
 					</select>
 				</div>
 				{cursoSeleccionado && (
 					<>
-						<div>
+						<div className='form-group'>
 							<label htmlFor='profesor'>Profesor:</label>
-							<select name='profesor' id='profesor' value={profesorSeleccionado} onChange={handleProfesorChange}>
+							<select className='form-control' name='profesor' id='profesor' value={profesorSeleccionado} onChange={handleProfesorChange}>
 								<option value=''>Selecciona un profesor</option>
 								{extraeProfesores().map((profesor) => (
 									<option key={profesor.id} value={profesor.nombre}>
-										{profesor.nombre}
+										{profesor.id} - {profesor.nombre}
 									</option>
 								))}
 							</select>
@@ -70,15 +70,18 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores, e
 							<div>
 								<label>Estudiantes:</label>
 								{extraeEstudiantes().map((estudiante) => (
-									<div key={estudiante.id}>
+									<div key={estudiante.id} className='form-check'>
 										<input
+											className='form-check-input'
 											type='checkbox'
 											id={`estudiante-${estudiante.id}`}
 											value={estudiante.id}
 											checked={estudiantesSeleccionados.some((est) => est.id === estudiante.id)}
 											onChange={handleEstudianteChange}
 										/>
-										<label htmlFor={`estudiante-${estudiante.id}`}>{estudiante.nombre}</label>
+										<label className='form-check-label' htmlFor={`estudiante-${estudiante.id}`}>
+											{estudiante.id} - {estudiante.nombre}
+										</label>
 									</div>
 								))}
 							</div>
