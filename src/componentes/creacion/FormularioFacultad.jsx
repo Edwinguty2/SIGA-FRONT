@@ -7,31 +7,31 @@ const FormularioFacultad = () => {
     const [asignatura, setAsignatura] = useState('');
     const [facultades, setFacultades] = useState({
         ingenieria: {
-          estudiantes: [],
-          profesores: [],
-          asignaturas: []
+            estudiantes: [],
+            profesores: [],
+            asignaturas: []
         },
         medicina: {
-          estudiantes: [],
-          profesores: [],
-          asignaturas: []
+            estudiantes: [],
+            profesores: [],
+            asignaturas: []
         },
         comunicacion: {
-          estudiantes: [],
-          profesores: [],
-          asignaturas: []
+            estudiantes: [],
+            profesores: [],
+            asignaturas: []
         },
         educacion: {
-          estudiantes: [],
-          profesores: [],
-          asignaturas: []
+            estudiantes: [],
+            profesores: [],
+            asignaturas: []
         },
         derecho: {
-          estudiantes: [],
-          profesores: [],
-          asignaturas: []
+            estudiantes: [],
+            profesores: [],
+            asignaturas: []
         }
-      });
+    });
 
 
     const handleChangeFacultad = (event) => {
@@ -42,7 +42,7 @@ const FormularioFacultad = () => {
         event.preventDefault();
 
         if (facultad && estudiante) {
-            setFacultades((prevFacultades) => ({    
+            setFacultades((prevFacultades) => ({
                 ...prevFacultades,
                 [facultad]: {
                     ...prevFacultades[facultad],
@@ -130,7 +130,6 @@ const FormularioFacultad = () => {
                         onChange={(event) => setProfesor(event.target.value)}
                     />
                 </div>
-
                 <button type="submit" className="btn btn-primary">
                     Agregar Profesor
                 </button>
@@ -154,9 +153,9 @@ const FormularioFacultad = () => {
             </form>
 
             <div className='container'>
-                
-                    <h4>Facultades</h4>
-                    <div className="mt-5 d-flex">
+
+                <h3>Facultades</h3>
+                <div className="mt-5 d-flex">
                     {Object.keys(facultades).map((facultad) => (
                         <div key={facultad} style={{ marginRight: '45px' }}>
                             <h5>{facultad}</h5>
@@ -198,10 +197,8 @@ const FormularioFacultad = () => {
                             </div>
                         </div>
                     ))}
-                    
                 </div>
             </div>
-
         </div>
     );
 };
