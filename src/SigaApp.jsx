@@ -114,7 +114,8 @@ export const SigaApp = () => {
 				<Router>
 					<Navbar />
 					<Switch>
-						<Route path='/' exact render={() => <Inicio facultades={facultades} />} />
+						<Route path='/' exact render={() => <Inicio facultades={facultades} cursos={cursos} />} />
+
 						<Route path='/crear' render={(props) => (<Crear {...props} agregarEstudiante={(estudiante, facultad) => { agregarEstudiante(estudiante, facultad) }} agregarProfesor={(profesor, facultad) => { agregarProfesor(profesor, facultad) }} agregarAsignatura={(asignatura, facultad) => { agregarAsignatura(asignatura, facultad) }} />)} />
 						<Route path='/crear-curso-libre' render={(props) => <CrearCurso{...props} agregarCurso={(curso, facultad) => { agregarCurso(curso, facultad); }} facultades={facultades} />} />
 						<Route path='/cursos-libres' render={(props) => (<CursoLibre {...props} listaCursos={cursos} extraeEstudiantes={() => { extraeEstudiantes() }} extraeProfesores={() => { extraeProfesores() }} />)} />
