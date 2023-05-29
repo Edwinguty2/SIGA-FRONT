@@ -5,6 +5,11 @@ import { Navbar } from "./componentes/navegacion/Navbar";
 import { Inicio } from "./componentes/paginas/Inicio";
 import { CrearCurso } from "./componentes/paginas/CrearCurso";
 import { useState } from 'react';
+import { postProfesor } from "./peticiones/postProfesores";
+import { postEstudiantes } from "./peticiones/postEstudiantes";
+import { getAsignaturas } from "./peticiones/getAsignaturas";
+import { getCursos } from "./peticiones/getCursos";
+import { getCursosLibres } from "./peticiones/getCursosLibres";
 
 export const SigaApp = () => {
 	const [cursos, setCursos] = useState([])
@@ -43,6 +48,8 @@ export const SigaApp = () => {
 
 
 	const agregarEstudiante = (estudiante, facultad) => {
+		const { nombre, id } = estudiante;
+		postEstudiantes(nombre, id, facultad)
 		setFacultades((facultades) => {
 
 			const nuevasFacultades = { ...facultades };
@@ -54,6 +61,8 @@ export const SigaApp = () => {
 		});
 	}
 	const agregarProfesor = (profesor, facultad) => {
+		const { nombre, id } = profesor;
+		postProfesor(nombre, id, facultad)
 		setFacultades((facultades) => {
 			const nuevasFacultades = { ...facultades };
 			const facultadEspecifica = nuevasFacultades[facultad.toLowerCase()];
@@ -64,6 +73,7 @@ export const SigaApp = () => {
 		});
 	}
 	const agregarAsignatura = (asignatura, facultad) => {
+		getAsignaturas(asignatura, facultad);
 		setFacultades((facultades) => {
 			const nuevasFacultades = { ...facultades };
 			const facultadEspecifica = nuevasFacultades[facultad.toLowerCase()];
@@ -76,6 +86,7 @@ export const SigaApp = () => {
 
 	const agregarCurso = (asignatura, facultad) => {
 		const id = Math.floor(Math.random() * 1000);
+		getCursosLibres(asignatura,facultad,id);
 		const nuevoCurso = {
 			materia: asignatura,
 			facultad: facultad,
@@ -85,6 +96,22 @@ export const SigaApp = () => {
 		}
 		setCursos((cursos) => [...cursos, nuevoCurso])
 	}
+	const editarCurso = (listaEstudiantes, profesor, id) => {
+		setCursos(cursos.map((curso) => {
+			if (curso.id === id) {
+				return {
+					materia: curso.materia,
+					facultad: curso.facultad,
+					id: id,
+					profesor: profesor,
+					estudiantes: listaEstudiantes
+				}
+			} else {
+				return curso
+			}
+		}));
+	}
+
 
 	const extraeEstudiantes = () => {
 		const estudiantes = [];
