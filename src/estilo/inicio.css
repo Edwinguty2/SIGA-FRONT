@@ -1,0 +1,55 @@
+.container {
+	margin-top: 20px;
+	color: #f7f9f4;
+}
+
+.facultad {
+	background-color: #232526;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+.facultad h2 {
+	color: #f7f9f4;
+}
+
+.row {
+	margin-top: 20px;
+}
+
+.col-md-6 {
+	margin-bottom: 20px;
+}
+
+h3 {
+	color: #f7f9f4;
+	margin-bottom: 10px;
+}
+
+.list-group-item {
+	background-color: #f7f9f4;
+	color: #232526;
+	border: none;
+}
+
+.table {
+	background-color: #f7f9f4;
+}
+
+.table th {
+	background-color: #444;
+	color: #f7f9f4;
+	border-color: #444;
+}
+
+.table td {
+	border-color: #ddd;
+}
+
+.table tr:nth-child(even) {
+	background-color: #ede5d8;
+}
+
+.btn {
+	margin-right: 10px;
+}
