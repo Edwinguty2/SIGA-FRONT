@@ -88,7 +88,7 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores, e
 						) : (
 							<p>No hay estudiantes disponibles</p>
 						)}
-						<button type='submit'>Guardar</button>
+						<button type='submit' className='btn btn-primary'>Guardar</button>
 					</>
 				)}
 			</form>
