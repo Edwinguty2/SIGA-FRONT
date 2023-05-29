@@ -29,9 +29,9 @@ export const CrearCurso = ({ agregarCurso, facultades }) => {
 		<div>
 			<h1>Crear Curso</h1>
 			<form>
-				<div>
+				<div className="form-group">
 					<label>Facultad:</label>
-					<select value={selectedFacultad} onChange={handleFacultadChange}>
+					<select className="form-control" value={selectedFacultad} onChange={handleFacultadChange}>
 						<option value="">Seleccione una facultad</option>
 						{Object.keys(facultades).map((facultad) => (
 							<option key={facultad} value={facultad}>
@@ -41,9 +41,9 @@ export const CrearCurso = ({ agregarCurso, facultades }) => {
 					</select>
 				</div>
 				{selectedFacultad && (
-					<div>
+					<div className="form-group">
 						<label>Asignatura:</label>
-						<select value={selectedAsignatura} onChange={handleAsignaturaChange}>
+						<select className="form-control" value={selectedAsignatura} onChange={handleAsignaturaChange}>
 							<option value="">Seleccione una asignatura</option>
 							{asignaturas.map((asignatura, index) => (
 								<option key={index} value={asignatura}>
@@ -53,7 +53,7 @@ export const CrearCurso = ({ agregarCurso, facultades }) => {
 						</select>
 					</div>
 				)}
-				<button type="button" onClick={handleGuardarCurso}>
+				<button type="button" className="btn btn-primary" onClick={handleGuardarCurso}>
 					Guardar Curso
 				</button>
 			</form>

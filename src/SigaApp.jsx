@@ -100,13 +100,6 @@ export const SigaApp = () => {
 		});
 		return profesores;
 	};
-	const extraeAsignaturas = () => {
-		const asignaturas = [];
-		Object.values(facultades).forEach((facultad) => {
-			asignaturas.push(...facultad.asignaturas);
-		});
-		return asignaturas;
-	};
 
 	return (
 		<>
