@@ -86,7 +86,6 @@ export const SigaApp = () => {
 
 	const agregarCurso = (asignatura, facultad) => {
 		const id = Math.floor(Math.random() * 1000);
-		getCursosLibres(asignatura, facultad, id);
 		const nuevoCurso = {
 			materia: asignatura,
 			facultad: facultad,
@@ -97,7 +96,7 @@ export const SigaApp = () => {
 		setCursos((cursos) => [...cursos, nuevoCurso])
 	}
 	const editarCurso = (listaEstudiantes, profesor, id) => {
-		getCursos(listaEstudiantes, profesor, id);
+
 		setCursos(cursos.map((curso) => {
 			if (curso.id === id) {
 				return {
