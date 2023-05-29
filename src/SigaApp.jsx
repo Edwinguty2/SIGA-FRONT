@@ -7,13 +7,19 @@ import { useState } from 'react';
 
 export const SigaApp = () => {
 
+	const [cursos, setCursos]= useState([])
 	const [facultades, setFacultades] = useState({
+		eica: {
+			estudiantes: [],
+			profesores: [],
+			asignaturas: []
+		},
 		ingenieria: {
 			estudiantes: [],
 			profesores: [],
 			asignaturas: []
 		},
-		medicina: {
+		derecho: {
 			estudiantes: [],
 			profesores: [],
 			asignaturas: []
@@ -23,12 +29,12 @@ export const SigaApp = () => {
 			profesores: [],
 			asignaturas: []
 		},
-		educacion: {
+		salud: {
 			estudiantes: [],
 			profesores: [],
 			asignaturas: []
 		},
-		derecho: {
+		educacion: {
 			estudiantes: [],
 			profesores: [],
 			asignaturas: []
@@ -40,29 +46,47 @@ export const SigaApp = () => {
 		setFacultades((facultades) => {
 
 			const nuevasFacultades = { ...facultades };
-
-
-			const facultadEspecifica = nuevasFacultades[facultad];
-
+			const facultadEspecifica = nuevasFacultades[facultad.toLowerCase()];
 			const nuevaListaEstudiantes = [...facultadEspecifica.estudiantes, estudiante];
-
-
 			facultadEspecifica.estudiantes = nuevaListaEstudiantes;
-
+			console.log(nuevasFacultades)
 			return nuevasFacultades;
 		});
-
 	}
-	// const editarEstudiante = (estudianteEditado) => {
-	// 	setEstudiantes(estudiantes.map((estudiante) => {
-	// 		if (estudianteEditado.id === estudiante.id) {
-	// 			return estudianteEditado;
-	// 		} else {
-	// 			return estudiante
-	// 		}
-	// 	}));
+	const agregarProfesor = (profesor, facultad) => {
+		setFacultades((facultades) => {
+			const nuevasFacultades = { ...facultades };
+			const facultadEspecifica = nuevasFacultades[facultad.toLowerCase()];
+			const nuevaListaProfesores = [...facultadEspecifica.profesores, profesor];
+			facultadEspecifica.profesores = nuevaListaProfesores;
+			console.log(nuevasFacultades)
+			return nuevasFacultades;
+		});
+	}
+	const agregarAsignatura = (asignatura, facultad) => {
+		setFacultades((facultades) => {
+			const nuevasFacultades = { ...facultades };
+			const facultadEspecifica = nuevasFacultades[facultad.toLowerCase()];
+			const nuevaListaAsignaturas = [...facultadEspecifica.asignaturas, asignatura];
+			facultadEspecifica.asignaturas = nuevaListaAsignaturas;
+			console.log(nuevasFacultades)
+			return nuevasFacultades;
+		});
+	}
 
-	// }
+	const agregarCurso = (asignatura, facultad) => {
+		const id = Math.floor(Math.random() * 1000); 
+		const nuevoCurso = {
+			materia:asignatura,
+			facultad:facultad,
+			id:id,
+			profesor:"",
+			estudiantes:[]
+		}
+		setCursos((cursos) => [...cursos, nuevoCurso])
+	}
+
+
 
 	return (
 		<>
@@ -71,8 +95,8 @@ export const SigaApp = () => {
 					<Navbar />
 					<Switch>
 						<Route path='/' exact component={Inicio} />
-						<Route path='/crear' render={(props) => ( <Crear {...props} agregarEstudiante={(estudiante) => { agregarEstudiante(estudiante) }} /> )}/>
-						<Route path='/curso-libre' component={CursoLibre} />
+						<Route path='/crear' render={(props) => ( <Crear {...props} agregarEstudiante={(estudiante,facultad) => { agregarEstudiante(estudiante,facultad) }} agregarProfesor={(profesor,facultad) => { agregarProfesor(profesor,facultad) }} agregarAsignatura={(asignatura,facultad) => { agregarAsignatura(asignatura,facultad) }}/> )}/>
+						<Route path='/curso-libre' render={(props) => (  <CursoLibre {...props} cursos={cursos} />)}/>
 					</Switch>
 				</Router>
 			</div>
