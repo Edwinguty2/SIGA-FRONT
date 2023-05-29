@@ -19,7 +19,6 @@ const Crear = ({ agregarEstudiante, agregarProfesor, agregarAsignatura }) => {
         };
         agregarEstudiante(nuevoEstudiante, facultad);
         setEstudiante("");
-        setFacultad("");
     };
 
     const guardarProfesor = (e) => {
@@ -31,14 +30,12 @@ const Crear = ({ agregarEstudiante, agregarProfesor, agregarAsignatura }) => {
         };
         agregarProfesor(nuevoProfesor, facultad);
         setProfesor("");
-        setFacultad("");
     };
 
     const guardarAsignatura = (e) => {
         e.preventDefault();
         agregarAsignatura(asignatura, facultad);
         setAsignatura("");
-        setFacultad("");
     };
 
     return (
