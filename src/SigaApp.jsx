@@ -97,6 +97,7 @@ export const SigaApp = () => {
 		setCursos((cursos) => [...cursos, nuevoCurso])
 	}
 	const editarCurso = (listaEstudiantes, profesor, id) => {
+		getCursos(listaEstudiantes, profesor, id);
 		setCursos(cursos.map((curso) => {
 			if (curso.id === id) {
 				return {
