@@ -1,37 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores }) => {
 	const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
-	const [profesorSeleccionado, setProfesorSeleccionado] = useState("");
+	const [profesorSeleccionado, setProfesorSeleccionado] = useState(null);
 	const [estudianteSeleccionado, setEstudianteSeleccionado] = useState(null);
-	const [estudiantesDisponibles, setEstudiantesDisponibles] = useState([
-		{ id: 1, nombre: "Estudiante 1" },
-		{ id: 2, nombre: "Estudiante 2" },
-		{ id: 3, nombre: "Estudiante 3" },
-		{ id: 4, nombre: "Estudiante 4" },
-		{ id: 5, nombre: "Estudiante 5" }
-	]);
-	const [cursos, setCursos] = useState([
-		{
-			id: 1,
-			curso: "Curso Libre 1",
-			profesor: "",
-			estudiantes: []
-		},
-		{
-			id: 2,
-			curso: "Curso Libre 2",
-			profesor: "",
-			estudiantes: []
-		},
-		{
-			id: 3,
-			curso: "Curso Libre 3",
-			profesor: "",
-			estudiantes: []
-		}
-	]);
-
+	const [cursos, setCursos] = useState(listaCursos || []);
+	const [estudiantesDisponibles, setEstudiantesDisponibles] = useState(extraeEstudiantes || []);
+	const [profesoresDisponibles, setProfesoresDisponibles] = useState(extraeProfesores || []);
 
 	const handleCursoClick = (curso) => {
 		setCursoSeleccionado(curso);
@@ -49,7 +24,11 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores })
 	};
 
 	const handleAgregarEstudiante = () => {
-		if (estudianteSeleccionado && !cursoSeleccionado.estudiantes.includes(estudianteSeleccionado)) {
+		if (
+			estudianteSeleccionado &&
+			cursoSeleccionado &&
+			!cursoSeleccionado.estudiantes.includes(estudianteSeleccionado)
+		) {
 			const cursosActualizados = cursos.map((curso) => {
 				if (curso.id === cursoSeleccionado.id) {
 					const estudiantesActualizados = [...curso.estudiantes, estudianteSeleccionado];
@@ -128,9 +107,11 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores })
 							disabled={!cursoSeleccionado}
 						>
 							<option value="">Seleccionar Profesor</option>
-							<option value="Profesor 1">Profesor 1</option>
-							<option value="Profesor 2">Profesor 2</option>
-							<option value="Profesor 3">Profesor 3</option>
+							{profesoresDisponibles.map((profesor) => (
+								<option key={profesor.id} value={profesor.nombre}>
+									{profesor.nombre}
+								</option>
+							))}
 						</select>
 						<button
 							type="button"
@@ -184,7 +165,7 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores })
 								<td>{curso.id}</td>
 								<td>{curso.curso}</td>
 								<td>{curso.profesor ? curso.profesor : "Sin profesor"}</td>
-								<td>{curso.estudiantes.length}</td>
+								<td>{curso.estudiantes ? curso.estudiantes.length : 0}</td>
 							</tr>
 						))}
 					</tbody>
@@ -201,22 +182,23 @@ export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores })
 								</tr>
 							</thead>
 							<tbody>
-								{cursoSeleccionado.estudiantes.map((estudiante) => (
-									<tr key={estudiante.id}>
-										<td>{estudiante.id}</td>
-										<td>{estudiante.nombre}</td>
-										<td>
-											<button
-												type="button"
-												className="btn btn-danger"
-												onClick={() => handleQuitarEstudiante(estudiante)}
-												disabled={!cursoSeleccionado}
-											>
-												Quitar
-											</button>
-										</td>
-									</tr>
-								))}
+								{cursoSeleccionado.estudiantes &&
+									cursoSeleccionado.estudiantes.map((estudiante) => (
+										<tr key={estudiante.id}>
+											<td>{estudiante.id}</td>
+											<td>{estudiante.nombre}</td>
+											<td>
+												<button
+													type="button"
+													className="btn btn-danger"
+													onClick={() => handleQuitarEstudiante(estudiante)}
+													disabled={!cursoSeleccionado}
+												>
+													Quitar
+												</button>
+											</td>
+										</tr>
+									))}
 							</tbody>
 						</table>
 					</div>

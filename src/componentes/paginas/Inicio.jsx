@@ -24,6 +24,7 @@ export const Inicio = ({ facultades, cursos }) => {
 								<table className="table">
 									<thead>
 										<tr>
+											<th>ID</th>
 											<th>Materia</th>
 											<th>Profesor</th>
 										</tr>
@@ -33,6 +34,7 @@ export const Inicio = ({ facultades, cursos }) => {
 											.filter((curso) => curso.facultad.toLowerCase() === facultad.toLowerCase())
 											.map((curso) => (
 												<tr key={curso.id}>
+													<td>{curso.id}</td>
 													<td>{curso.materia}</td>
 													<td>{curso.profesor}</td>
 												</tr>
