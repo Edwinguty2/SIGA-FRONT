@@ -2,11 +2,7 @@
 
 Integrantes:
 
-Miguel Feo
--
-Edwin Gutierrez
--
-Nicolas Ortiz
+Miguel Feo - Edwin Gutierrez - Nicolas Ortiz
 
 No se logro conectar el backend con el front end.
 
