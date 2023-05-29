@@ -1,3 +1,4 @@
+import React from 'react';
 import '../../estilo/inicio.css';
 
 export const Inicio = ({ facultades, cursos }) => {
@@ -27,6 +28,7 @@ export const Inicio = ({ facultades, cursos }) => {
 											<th>ID</th>
 											<th>Materia</th>
 											<th>Profesor</th>
+											<th>Cantidad de Estudiantes</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -37,6 +39,7 @@ export const Inicio = ({ facultades, cursos }) => {
 													<td>{curso.id}</td>
 													<td>{curso.materia}</td>
 													<td>{curso.profesor}</td>
+													<td>{curso.estudiantes.length}</td>
 												</tr>
 											))}
 									</tbody>
