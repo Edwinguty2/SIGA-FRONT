@@ -1,6 +1,16 @@
 import { useState } from "react";
 
-export const CursoLibre = () => {
+export const CursoLibre = ({ listaCursos, extraeEstudiantes, extraeProfesores }) => {
+	const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
+	const [profesorSeleccionado, setProfesorSeleccionado] = useState("");
+	const [estudianteSeleccionado, setEstudianteSeleccionado] = useState(null);
+	const [estudiantesDisponibles, setEstudiantesDisponibles] = useState([
+		{ id: 1, nombre: "Estudiante 1" },
+		{ id: 2, nombre: "Estudiante 2" },
+		{ id: 3, nombre: "Estudiante 3" },
+		{ id: 4, nombre: "Estudiante 4" },
+		{ id: 5, nombre: "Estudiante 5" }
+	]);
 	const [cursos, setCursos] = useState([
 		{
 			id: 1,
@@ -22,16 +32,6 @@ export const CursoLibre = () => {
 		}
 	]);
 
-	const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
-	const [profesorSeleccionado, setProfesorSeleccionado] = useState("");
-	const [estudianteSeleccionado, setEstudianteSeleccionado] = useState(null);
-	const [estudiantesDisponibles, setEstudiantesDisponibles] = useState([
-		{ id: 1, nombre: "Estudiante 1" },
-		{ id: 2, nombre: "Estudiante 2" },
-		{ id: 3, nombre: "Estudiante 3" },
-		{ id: 4, nombre: "Estudiante 4" },
-		{ id: 5, nombre: "Estudiante 5" }
-	]);
 
 	const handleCursoClick = (curso) => {
 		setCursoSeleccionado(curso);
